@@ -1,0 +1,242 @@
+/* Brennan Lynch
+CS110 HW5
+February 27, 2015
+Card Class */
+
+import javax.swing.ImageIcon;
+
+public class Card
+{
+   public static final int TWO = 2, THREE = 3, FOUR = 4, FIVE = 5, SIX = 6, SEVEN = 7,
+                           EIGHT = 8, NINE = 9, TEN = 10, JACK = 11, QUEEN = 12, KING = 13, ACE = 14, 
+                           DIAMONDS = 15, HEARTS = 16, SPADES = 17, CLUBS = 18;
+   private int rank;
+   private int suit;
+   
+   /** Card
+   @param suit the suit of the card
+   @param rank the rank of the card */
+   public Card(int rank,int suit)
+   {
+      this.suit = suit;
+      this.rank = rank;
+   }
+   
+   /** getSuit
+   @return the suit value */
+   public int getSuit()
+   {
+      return suit;
+   }
+   
+   /** getRank
+   @return the rank value */
+   public int getRank()
+   {
+      return rank;
+   }
+   
+   /** toString
+   @return the description of the card */
+   public String toString()
+   {
+      String rankString;
+      if (rank > TEN)
+      {
+         if (rank == JACK)
+            rankString = "Jack";
+         else if (rank == QUEEN)
+            rankString = "Queen";
+         else if (rank == KING)
+            rankString = "King";
+         else
+            rankString = "Ace";
+      }
+      else
+         rankString = "";
+      
+    
+         
+      String suitString;
+      
+ 
+      
+      if (suit == DIAMONDS)
+         suitString = "diamonds";
+      else if (suit == HEARTS)
+         suitString = "hearts";
+      else if (suit == SPADES)
+         suitString = "spades";
+      else 
+         suitString = "clubs";
+      
+      String returnString;
+      
+      if (rank > TEN)
+         returnString = rankString + " of " + suitString;
+      else
+         returnString = rank + " of " + suitString;
+      
+      return returnString;   
+   }
+   
+   /** equals
+   @param otherCard the card being compared
+   @return true if cards have same rank */
+   public boolean equals(Card otherCard)
+   {
+      if (otherCard.getRank() == rank)
+         return true;
+      else
+         return false;
+   }
+      
+   /** getIcon()
+   @return the corresponding Image */   
+   public ImageIcon getIcon()
+   {
+      if (rank == TWO)
+      {
+         if (suit == DIAMONDS)
+             return new ImageIcon("2d.jpg");
+         else if(suit == CLUBS)     
+            return new ImageIcon("2c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("2s.jpg");
+         else
+            return new ImageIcon("2h.jpg");
+      }
+      else if (rank == THREE)
+      {
+         if(suit == DIAMONDS)
+            return new ImageIcon("3d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("3c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("3s.jpg");
+         else
+            return new ImageIcon("3h.jpg");
+      }
+      else if(rank == FOUR)
+      {  
+         if(suit == DIAMONDS)
+            return new ImageIcon("4d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("4c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("4s.jpg");
+         else
+            return new ImageIcon("4h.jpg");
+      }
+      else if(rank == FIVE)
+      {   
+         if(suit == DIAMONDS)
+            return new ImageIcon("5d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("5c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("5s.jpg");
+         else
+            return new ImageIcon("5h.jpg");
+      }
+      else if(rank == SIX)
+      {   
+         if(suit == DIAMONDS)
+            return new ImageIcon("6d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("6c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("6s.jpg");
+         else
+            return new ImageIcon("6h.jpg");
+      }
+      else if(rank == SEVEN)
+      {   
+         if(suit == DIAMONDS)
+            return new ImageIcon("7d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("7c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("7s.jpg");
+         else
+            return new ImageIcon("7h.jpg");
+      }
+      else if(rank == EIGHT)
+      {        
+         if(suit == DIAMONDS)
+            return new ImageIcon("8d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("8c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("8s.jpg");
+         else
+            return new ImageIcon("8h.jpg");
+      }
+      else if(rank == NINE)
+      {      
+         if(suit == DIAMONDS)
+            return new ImageIcon("9d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("9c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("9s.jpg");
+         else
+            return new ImageIcon("9h.jpg");
+      }
+      else if(rank == TEN)
+      {     
+         if(suit == DIAMONDS)
+            return new ImageIcon("10d.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("10c.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("10s.jpg");
+         else
+            return new ImageIcon("10h.jpg");
+      }
+      else if(rank == JACK)
+      {    
+         if(suit == DIAMONDS)
+            return new ImageIcon("jackd.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("jackc.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("jacks.jpg");
+         else
+            return new ImageIcon("jackh.jpg");
+      }
+      else if(rank == QUEEN)
+      {
+         if(suit == DIAMONDS)
+            return new ImageIcon("queend.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("queenc.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("queens.jpg");
+         else
+            return new ImageIcon("queenh.jpg");
+      }
+      else if(rank == KING)
+      {
+         if(suit == DIAMONDS)
+            return new ImageIcon("kingd.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("kingc.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("kings.jpg");
+         else
+            return new ImageIcon("kingh.jpg");
+      }
+      else
+      {
+         if(suit == DIAMONDS)
+            return new ImageIcon("aced.jpg");
+         else if(suit == CLUBS)
+            return new ImageIcon("acec.jpg");
+         else if(suit == SPADES)
+            return new ImageIcon("aces.jpg");
+         else
+            return new ImageIcon("aceh.jpg");
+      }
+   }
+}
