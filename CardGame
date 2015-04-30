@@ -1,0 +1,12 @@
+/* Brennan Lynch
+CS110 Final Project
+Game of War -- Interface
+April 29, 2015 */
+
+public interface CardGame
+{
+   void play();
+   Card getCard1();
+   Card getCard2();
+   void winner();
+}
