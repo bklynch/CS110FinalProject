@@ -1,0 +1,213 @@
+/* Brennan Lynch
+CS110 Final Project
+Game of War
+April 29, 2015 */
+
+import java.util.*;
+
+public class War1 implements CardGame
+{
+   //constants!
+   public static final int HALF = 26, ALL = 52;
+   
+   //instance fields
+   private ArrayList<Card> player1 = new ArrayList<Card>();
+   private ArrayList<Card> player2 = new ArrayList<Card>(); // the two player's hands    
+   private ArrayList<Card> burn = new ArrayList<Card>();  // a third Card array for burn cards in War
+   private Card card1;
+   private Card card2; //the cards being played
+   
+   //constructor
+   public War1()
+   {
+      dealCards();   
+   }
+   
+   //dealCards() sets the two player's hands
+   public void dealCards()
+   {
+      
+      
+      //create a deck of cards
+      Deck deck = new Deck();
+      
+      //shuffle the deck
+      deck.shuffle();
+      
+      //deal all of the cards to the players
+      for(int i = 0; i < HALF; i++)
+      {
+         player1.add(i, deck.dealCard());
+         player2.add(i, deck.dealCard());
+      }
+      
+   }
+      
+      
+      
+      
+      /** play()
+      simulates the game of war */
+      public void play()
+      {
+      
+         //GET NEW CARDS TO COMPARE
+            try
+            {
+               card1 = player1.get(player1.size()-1);
+               card2 = player2.get(player2.size()-1); 
+            }
+            catch(Exception e)
+            {
+            }  
+      
+         Card temp;
+         
+         if(player1.size()	< ALL	&&	player2.size()	< ALL) 
+   		{
+   			
+   			//compare cards
+   			
+   			//card 1	less than card	2
+   			if(card1.getRank() <	card2.getRank())
+   			{
+   				System.out.print("Player 1: "	+ card1 + "\nPlayer 2: " +	card2	+ "\n*******\n");	
+   				
+   				//remove	card from player1, add to player2
+   				player1.remove(card1);
+   				player2.add(0,	card1);
+   				
+   				//move top cards to bottom	of	player2 deck
+   				temp = player2.get(player2.size()-1);
+   				player2.remove(player2.size()-1);
+   				player2.add(0,temp);	
+               
+   				while(burn.size()	!=	0)
+   				//ADD	THE BURN	CARDS	TO	THE WINNER OF THE	WAR (if there was	a war)
+   				{
+   					player2.add(0,	burn.get(0));
+   					burn.remove(0);  
+   				}				
+   			}
+   			
+   			//card 1	less than card	2
+   			else if(card1.getRank() >	card2.getRank())
+   			{
+   				System.out.print("Player 1: "	+ card1 + "\nPlayer 2: " +	card2	+ "\n*******\n");
+   				
+   				//remove	card from player2, add to player1 deck
+   				player2.remove(card2);
+   				player1.add(0,	card2);
+   				
+   				//move top cards to bottom	of	player1 deck
+   				temp = player1.get(player1.size()-1);
+   				player1.remove(player1.size()-1);
+   				player1.add(0,temp);
+   				  
+   				while(burn.size()	!=	0)
+   				//ADD	THE BURN	CARDS	TO	THE WINNER OF THE	WAR 
+   				{
+   					player1.add(0,	burn.get(0));
+   					burn.remove(0);  
+   				}	
+   			}
+  
+            else
+            {
+               war();
+            }
+   		}
+
+      }
+      
+      
+      /** war()
+      simulates the war */
+      public void war()  
+      {
+         
+            System.out.print("WAR\n" + "Player 1: " + card1 + "\nPlayer 2: " + card2 + "\n*******\n");
+                  
+            //burn cards. TAKE THE TWO BEING COMPARED, PLUS TWO MORE, and add them to the burn arraylist
+            try
+            {
+               //burn the current cards with same rank
+               Card burn1 = player1.get(player1.size()-1);
+               Card burn2 = player2.get(player2.size()-1);
+                  
+               player1.remove(player1.size()-1);
+               player2.remove(player2.size()-1);
+                  
+               burn.add(burn1);
+               burn.add(burn2);
+                     
+               //burn two cards before flipping others      
+               Card burn3 = player1.get(player1.size()-1);
+               Card burn4 = player2.get(player2.size()-1);
+                  
+               player1.remove(player1.size()-1);
+               player2.remove(player2.size()-1);           
+                  
+               burn.add(burn3);
+               burn.add(burn4);
+               
+                
+         }
+            
+         catch(Exception e)
+         {
+            
+         }  
+                  
+                
+         
+      }
+      /** getCard1()
+      @return the card1 */
+      public Card getCard1()
+      {
+         return card1;
+      }
+      
+      /** getCard2()
+      @return the card2 */
+      public Card getCard2()
+      {
+         return card2;
+      }
+      
+      /** getPlayer1()
+      @return the arrayList of player1's cards */
+      public ArrayList<Card> getPlayer1()
+      {
+         return player1;
+      }
+      /** getPlayer2()
+      @return the arrayList of player2's cards */
+      public ArrayList<Card> getPlayer2()
+      {
+         return player2;
+      }
+      
+      /** winner()
+      displays to the user the winner of the card game */
+      public void winner()
+      {			
+   		if(player1.size()	==	ALL)
+   			System.out.print("Player 1 wins!");
+   		else
+   			System.out.print("Player 2 wins!");	
+      }
+      
+	public static void main(String [] args)
+   {
+      War1 game = new War1();
+      while(game.getPlayer1().size() < ALL && game.getPlayer2().size() < ALL)
+      {
+         game.play();
+      }
+      game.winner();
+   }
+	}
+
+
