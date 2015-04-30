@@ -1,0 +1,242 @@
+/* Brennan Lynch
+CS110 Final Project
+Game of War -- GUI
+April 29, 2015 */
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class WarGUI extends JFrame
+{
+  //  public static void main(String [] args)
+//    {
+//       War game = new War();
+//       game.play();
+//       game.winner();
+//    
+//    }
+
+   private War1 game;
+   private JPanel p1, pback1, pfront1, blank, p2, pback2, pfront2, flipPanel; //card displays
+   private JLabel title1, title2; // labels player1 and player2
+   private ImageIcon cardBack, cardFront1, cardFront2; // the image of the back and front of the card
+   private JLabel back1, back2, back3, back4, cfront1, cfront2, status1, status2;
+   private JButton flip;
+  
+      
+
+   
+   //build the GUI
+   public WarGUI()
+   {
+      
+      setLayout(new GridLayout(2,4));
+      setTitle("Game of War");
+      //create game instance
+      game = new War1();
+      
+      //setup containers and components
+      
+      //CARDS
+      // the images of the card
+      cardBack = new ImageIcon("back.jpg");
+            //make four images of the back of the card
+      back1 = new JLabel(cardBack);
+      back2 = new JLabel(cardBack);
+      back3 = new JLabel(cardBack);
+      back4 = new JLabel(cardBack);
+      
+      
+      
+      
+      
+      //PLAYER 1 panel
+      p1 = new JPanel();
+      p1.setLayout(new BorderLayout());
+      p1.setSize(100,250);
+      p1.setBackground(Color.MAGENTA);
+      title1 = new JLabel("  Player 1");
+      p1.add(title1,BorderLayout.CENTER);
+      
+     
+      
+      //display player 1's card back
+      pback1 = new JPanel();
+      pback1.setLayout(new BorderLayout());
+      pback1.setBackground(Color.MAGENTA);
+      pback1.add(back1,BorderLayout.CENTER);
+      
+      
+       //display player 1's card front
+      pfront1 = new JPanel();
+      pfront1.setLayout(new BorderLayout());
+      pfront1.setBackground(Color.MAGENTA);
+      
+      cfront1 = new JLabel();
+      pfront1.add(cfront1);
+      
+      
+      
+      //status
+      blank = new JPanel();
+      blank.setLayout(new GridLayout(2,1));
+      blank.setBackground(Color.MAGENTA);
+      
+      status1 = new JLabel();
+      status2 = new JLabel();
+      blank.add(status1);
+      blank.add(status2);
+      
+      //PLAYER 2 panel
+      p2 = new JPanel();
+      p2.setLayout(new BorderLayout());
+      p2.setSize(100,250);
+      p2.setBackground(Color.YELLOW);
+      title2 = new JLabel("  Player 2");
+      p2.add(title2,BorderLayout.CENTER);
+      
+      
+      //display player 2's card back
+      pback2 = new JPanel();
+      pback2.setLayout(new BorderLayout());
+      pback2.setBackground(Color.YELLOW);
+      pback2.add(back2,BorderLayout.CENTER);
+      
+      //display player 2's card front
+      pfront2 = new JPanel();
+      pfront2.setLayout(new BorderLayout());
+      pfront2.setBackground(Color.YELLOW);
+      
+      cfront2 = new JLabel();
+      pfront2.add(cfront2);
+      
+      
+      cardFront1 = new ImageIcon();
+      cardFront2 = new ImageIcon();
+      
+      //flip panel
+      flipPanel = new JPanel();
+      flipPanel.setLayout(new BorderLayout());
+      flipPanel.setBackground(Color.YELLOW);
+      
+      //ADD FLIP BUTTON
+      flip = new JButton("Flip!");
+      flip.addActionListener(new ButtonListener());
+      flip.setSize(50,25);
+     
+      flipPanel.add(flip,BorderLayout.NORTH);
+      
+      
+      
+      add(p1);
+      add(pback1);
+      add(pfront1);
+      add(blank);
+      add(p2);
+      add(pback2);
+      add(pfront2);
+      add(flipPanel);
+      //add(flip);
+      pack();
+      }
+      
+      //flip cards based on their corresponding values
+      private class ButtonListener implements ActionListener
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+          
+            //burn a card if in WAR
+            if (game.getPlayer1().size() < War1.ALL && game.getPlayer2().size() < War1.ALL)
+            {
+               if(flip.getText().equals("WAR!"))
+               {
+                  cfront1.setIcon(cardBack);
+                  cfront2.setIcon(cardBack);
+                  flip.setText("Flip!");
+               }
+            //flip cards face-up otherwise
+            else
+            {
+                  game.play();
+                  try
+                  {                 
+                     
+                     //if the cards are not equal
+                     if(!game.getCard1().equals(game.getCard2()))
+                     {
+                        
+                       //set the cardFront1 ImageIcon == corresponding card Icon
+                     cardFront1 = game.getCard1().getIcon();
+                     cfront1.setIcon(cardFront1);
+                     //set the cardFront2 ImageIcon == corresponding card Icon
+                     cardFront2 = game.getCard2().getIcon();
+                     cfront2.setIcon(cardFront2);
+                     
+                     status1.setText("Player 1 has " + game.getPlayer1().size() + " cards.");
+                     status2.setText("Player 2 has " + game.getPlayer2().size() + " cards.");
+                     }
+                     
+                     //if the cards are equal, enter WAR
+                     else if(game.getCard1().equals(game.getCard2()))
+                     {                     
+                       //set the cardFront1 ImageIcon == corresponding card Icon
+                        cardFront1 = game.getCard1().getIcon();
+                        cfront1.setIcon(cardFront1);
+                        //set the cardFront2 ImageIcon == corresponding card Icon
+                        cardFront2 = game.getCard2().getIcon();
+                        cfront2.setIcon(cardFront2);
+                        
+                        flip.setText("WAR!");
+                        
+                        status1.setText("Player 1 has " + game.getPlayer1().size() + " cards.");
+                        status2.setText("Player 2 has " + game.getPlayer2().size() + " cards.");
+                     }
+                  }
+                  catch(Exception ex)
+                  {               
+                  }
+               }
+            }
+            else
+            {
+               game.winner(); 
+               if (game.getPlayer1().size() == War1.ALL)
+               {
+                  cfront1.setIcon(null);
+                  cfront1.setText("You win player 1!");
+                  
+                  cfront2.setIcon(null);
+                  cfront2.setText("Better luck next time!");
+               }
+               else
+               {  
+                  cfront1.setIcon(null);
+                  cfront1.setText("Better luck next time!");
+                  
+                  cfront2.setIcon(null);
+                  cfront2.setText("You win player 2!");
+               }
+               
+               flip.setEnabled(false);
+               
+            }
+            
+         }  
+         
+                  
+      }
+      
+     
+      
+      
+     
+     
+      
+   }
+      
+      
+
+
